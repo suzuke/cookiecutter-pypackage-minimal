@@ -11,6 +11,14 @@ def read(filename):
     text_type = type(u"")
     with io.open(filename, mode="r", encoding='utf-8') as fd:
         return re.sub(text_type(r':[a-z]+:`~?(.*?)`'), text_type(r'``\1``'), fd.read())
+        
+
+def requirements(fname):
+    requires = []
+    with open(fname) as file:
+        for line in file:
+            requires.append(line.strip())
+    return list(requires)
 
 
 setup(
@@ -27,7 +35,7 @@ setup(
 
     packages=find_packages(exclude=('tests',)),
 
-    install_requires=[],
+    install_requires=requirements('requirements.txt'),
 
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
